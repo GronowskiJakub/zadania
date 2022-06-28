@@ -1,53 +1,44 @@
+document.getElementById('saveButton').addEventListener('click',save)
+
 //function checking for any number
-function checkNum(string, x){
-    x = 0;
-    for(key in string){
-        if(string[key]=="1"&&"2"&&"3"&&"4"&&"5"&&"6"&&"7"&&"8"&&"9"&&"0"){
-             x++;
-        }
-    }
-    return x;
+function checkNum(string) {
+    return /[0-9]/.test(string);
 }
 //function checking for @ symbol
-function checkAS(string, x){
-    x = 0;
+function checkAS(string){
     for(key in string){
         if(string[key]=="@"){
-             x++;
+            return true;
         }
     }
-    return x;
+    return false;
 }
 
+let block = document.createElement('p');
+block.setAttribute("id", "block"); 
 
-
-function funct(){
+function save(event){
+    let form = document.querySelector('form');
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     let age = document.getElementById('age').value;
     let email = document.getElementById('email').value;
     let desc = document.getElementById('desc').value;
     let gender = document.getElementById('gender').value;
-    let block = document.getElementById('block');
 
-    let n=0;
-    let i=0;
-    let y=0;
-    
-
-        if(name != "" && surname != "" && email != ""){
-            if(checkNum(name, n)<1 && checkNum(surname, i)<1 && checkAS(email, y)){
-                block.innerHTML=`<br>Imie: ${name} 
-                                <br>Nazwisko: ${surname} 
-                                <br>Wiek: ${age} 
-                                <br>E-mail: ${email} 
-                                <br>Opis: ${desc}
-                                <br>`;
+        if(name && surname && email){
+            if(!checkNum(name) && !checkNum(surname) && checkAS(email)){
+                block.innerText=`Imie: ${name} 
+                                Nazwisko: ${surname} 
+                                Wiek: ${age} 
+                                E-mail: ${email} 
+                                Opis: ${desc}
+                                Płeć: ${gender}`;
+                form.appendChild(block);
             }else{
                 alert("Wprowadź poprawne dane");
             }
         }else{
             alert("Wprowadź dane");
         }
-
     }
