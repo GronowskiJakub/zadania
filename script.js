@@ -80,11 +80,11 @@ function fireAlert(mess) {
 
 function validBorder(item){
     item.style.border="1px solid black";
-    item.style.borderRadius="1px";
+    item.style.borderRadius="5px";
 }
 function invalidBorder(item){
     item.style.border="2px solid red";
-    item.style.borderRadius="1px";    
+    item.style.borderRadius="5px";    
 }
 
 function invalidNum(e){
@@ -121,11 +121,11 @@ function checkDateFromId(id){
     yearB[1] = id[0];
     yearB[2] = id[1];
     let pom = Number(id[2]);
-    let x = 19;
-    x = x+(pom/2);
-    yearB[0]=x;
-    let y = id[2]+"0";
-    birthM = (id[2]+id[3])-y;
+    let base = 19;
+    base = base+(pom/2);
+    yearB[0]=base;
+    let dif = id[2]+"0";
+    birthM = (id[2]+id[3])-dif;
     birthY = yearB[0]+yearB[1]+yearB[2];
     birthD = id[4]+id[5];
     if(birthY[0]>1 && birthM<10){
