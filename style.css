@@ -36,9 +36,9 @@ body{
     text-decoration: none;
     box-sizing: border-box;
     padding: 10px;
-    color: gray;
+    color: whitesmoke;
     background-color: #192734;
-    border: 2px #15202B solid;
+    border: 2px white solid;
 }
 
 #nav{
