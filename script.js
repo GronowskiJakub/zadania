@@ -62,7 +62,9 @@ function fireAlert(mess) {
     alert.style.justifyContent="center";
 
     let main = document.querySelector('#main');
-    main.appendChild(alert);
+    let body = document.querySelector('body');
+
+    body.appendChild(alert);
     alert.appendChild(alertTxt);
     alert.appendChild(alertBtt);
 
@@ -128,8 +130,11 @@ function checkDateFromId(id){
     birthM = (id[2]+id[3])-dif;
     birthY = yearB[0]+yearB[1]+yearB[2];
     birthD = id[4]+id[5];
-    if(birthY[0]>1 && birthM<10){
+    if(birthM<10){
         birthM="0"+birthM;
+    }
+    if(birthD<10){
+        birthD="0"+birthM;
     }
     return birthY+"-"+birthM+"-"+birthD;
 }
@@ -151,6 +156,7 @@ function checkYearFromId(id){
 
 function save(event){
     let form = document.querySelector('form');
+    let nav = document.querySelector('#nav');
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     //let age = document.getElementById('age').value;
@@ -179,9 +185,10 @@ function save(event){
                                 E-mail: ${email} 
                                 Płeć: ${gender}
                                 Pesel: ${id}
-                                Data urodzenia: ${checkDateFromId(id)}
+                                Data urodzenia: 
+                                ${checkDateFromId(id)}
                                 Opis: ${desc}`;
-                form.appendChild(block);
+                nav.appendChild(block);
                 }else{
                     fireAlert("Wpowadź poprawny pesel");
                 }
