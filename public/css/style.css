@@ -1,0 +1,110 @@
+body{
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #192734;
+    max-height: fit-content;
+}
+#bann{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    background-color: darkslategrey;
+    color: #FFFF;
+    text-align: center;
+    box-sizing: border-box;
+    justify-content: space-around;
+    align-items: center;
+}
+#banner-item{
+    width: 200px;
+    height: 80%;
+    text-align: center;
+    font-size: larger;
+    text-decoration: none;
+    box-sizing: border-box;
+    padding: 10px;
+    color: white;
+    background-color: #192734;
+}
+#banner-item:hover{
+    width: 200px;
+    height: 90%;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box;
+    padding: 10px;
+    color: whitesmoke;
+    background-color: #192734;
+    border: 2px white solid;
+}
+
+#nav{
+    width: 25%;
+    height: 90%;   
+    float: left;
+    background-color: #15202B;
+    color: #FFFF;
+    box-sizing: border-box;
+    padding: 5px;
+}
+#main{
+    width: 75%;
+    height: 90%;
+    float: left;
+    background-color: #192734;
+    color: #FFFF;
+}
+input, select, textarea{
+    margin: 2px;
+    padding: 4px;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+form{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    height: 100%;
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    background-color: #15202B;
+}
+#form-item{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+input:focus{
+    outline: none;
+}
+button{
+    width: 100px;
+}
+#block{
+    font-size: 150%;
+    width: 400px;
+}
+#alertDiv{
+    display: flex;
+    padding-bottom: 5px;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    font-size: 200%;
+    color: black;
+    background-color: white;
+    border: 2px red solid;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    bottom: 60%;
+}
