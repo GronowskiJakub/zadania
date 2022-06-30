@@ -93,9 +93,13 @@ function invalidLet(e){
 function invalidID(e){
     if(checkLen(e.target.value)==11){
         if(checkID(e.target.value)){
-            e.target.style.color="black";
+            console.log("dobrze")
+            e.target.style.border="1px solid black";
+            e.target.style.borderRadius="1px";
         }else{
-            e.target.style.color="red";
+            e.target.style.border="2px solid red";
+            e.target.style.borderRadius="1px";
+            console.log(e.target.style)
         }
     }
 }
@@ -167,7 +171,7 @@ function save(event){
 
         if(name && surname && email){
             if(!checkNum(name) && !checkNum(surname) && checkAS(email) && !checkLet(id)){
-                if(birthM<=12 && birthD<=31){
+                if(birthM<=12 && birthD<=31 && checkID(id)){
                     block.innerText=`Imie: ${name} 
                                 Nazwisko: ${surname} 
                                 Wiek: ${age} 
