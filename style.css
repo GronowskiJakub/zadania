@@ -32,6 +32,7 @@ button{
 }
 #block{
     font-size: 150%;
+    width: 400px;
 }
 #alertDiv{
     display: flex;

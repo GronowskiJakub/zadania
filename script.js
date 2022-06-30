@@ -2,7 +2,9 @@ document.getElementById('saveButton').addEventListener('click',save)
 document.getElementById('name').addEventListener('input',invalidNum)
 document.getElementById('surname').addEventListener('input',invalidNum)
 document.getElementById('id').addEventListener('input',invalidID)
-document.getElementById('id').addEventListener('input', invalidLet)
+
+let block = document.createElement('p');
+block.setAttribute("id", "block"); 
 
 //function checking for any number
 function checkNum(string) {
@@ -70,115 +72,114 @@ function fireAlert(mess) {
 
     setTimeout(alertRemove, 4000);
     alertBtt.onclick = alertRemove;
-    block.remove();
+    if(block){
+        block.remove();
+    }
 }
+
+
+function validBorder(item){
+    item.style.border="1px solid black";
+    item.style.borderRadius="1px";
+}
+function invalidBorder(item){
+    item.style.border="2px solid red";
+    item.style.borderRadius="1px";    
+}
+
 function invalidNum(e){
     if(checkNum(e.target.value)){
-        e.target.style.border="2px red solid";
-        e.target.style.borderRadius="1px";
+        invalidBorder(e.target);
     }else{
-        e.target.style.border="1px black solid";
-        e.target.style.borderRadius="1px";
+        validBorder(e.target);
     }
 }
 function invalidLet(e){
     if(checkLet(e.target.value)){
-        e.target.style.border="2px red solid";
-        e.target.style.borderRadius="1px";
+        invalidBorder(e.target)
     }else{
-        e.target.style.border="1px black solid";
-        e.target.style.borderRadius="1px";
+        validBorder(e.target)
     }
 }
 function invalidID(e){
+
     if(checkLen(e.target.value)==11){
-        if(checkID(e.target.value)){
-            console.log("dobrze")
-            e.target.style.border="1px solid black";
-            e.target.style.borderRadius="1px";
+        if(!checkLet(e.target.value) && checkID(e.target.value)){
+            validBorder(e.target)
         }else{
-            e.target.style.border="2px solid red";
-            e.target.style.borderRadius="1px";
-            console.log(e.target.style)
+            invalidBorder(e.target)
         }
     }
 }
 
-let block = document.createElement('p');
-block.setAttribute("id", "block"); 
+function checkDateFromId(id){
+    let yearB = new Array;
+    let birthY = 0;
+    let birthM = 0;
+    let birthD = 0;
+
+    yearB[1] = id[0];
+    yearB[2] = id[1];
+    let pom = Number(id[2]);
+    let x = 19;
+    x = x+(pom/2);
+    yearB[0]=x;
+    let y = id[2]+"0";
+    birthM = (id[2]+id[3])-y;
+    birthY = yearB[0]+yearB[1]+yearB[2];
+    birthD = id[4]+id[5];
+    if(birthY[0]>1 && birthM<10){
+        birthM="0"+birthM;
+    }
+    return birthY+"-"+birthM+"-"+birthD;
+}
+function checkYearFromId(id){
+    let yearB = new Array;
+    let birthY = 0;
+
+    yearB[1] = id[0];
+    yearB[2] = id[1];
+    let pom = Number(id[2]);
+    let x = 19;
+    x = x+(pom/2);
+    yearB[0]=x;
+    birthY = yearB[0]+yearB[1]+yearB[2];
+    return birthY;
+}
+
+
 
 function save(event){
     let form = document.querySelector('form');
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
-    let age = document.getElementById('age').value;
+    //let age = document.getElementById('age').value;
     let email = document.getElementById('email').value;
     let desc = document.getElementById('desc').value;
     //let gender = document.getElementById('gender').value;
     //let birth = document.getElementById('birth').value;
     let id = document.getElementById('id').value;
-
-    let yearB = new Array;
-    let birthY = 0;
-    let birthM = 0;
-    let birthD = 0;
     let gender;
-    yearB[2] = id[0];
-    yearB[3] = id[1];
-    let pom = Number(id[2]);
-    if(pom%2==1){
-        pom--;
-    }
-    switch(pom){
-        case 0:
-            yearB[0] = "1";
-            yearB[1] = "9";
-            if((id[2]+id[3])<=12){
-                birthM = (id[2]+id[3]);
-                break;
-            }
-        case 2:
-            yearB[0] = "2";
-            yearB[1] = "0";
-            if((id[2]+id[3])<=32){
-                birthM = (id[2]+id[3])-20;
-                break;
-            }
-        case 4:
-            yearB[0] = "2";
-            yearB[1] = "1";
-            if((id[2]+id[3])<=52){
-                birthM = (id[2]+id[3])-40;
-                break;
-            }
-        default:
-            fireAlert("Wpowadź poprawny pesel");
-            break;
-    }
-    birthY = yearB[0]+yearB[1]+yearB[2]+yearB[3];
-    birthD = id[4]+id[5];
-    if(birthM<10){
-        birthM="0"+birthM;
-    }
 
     if(id[9]%2==0){
         gender="kobieta";
     }else{
         gender="mężczyzna";
     }
-    //date = new Date(birth);
-    //let year = date.getFullYear();
+    date = new Date();
+    fullYear = date.getFullYear();
+    age = fullYear-checkYearFromId(id);
 
-        if(name && surname && email){
+        if(name && surname && email && id && age){
             if(!checkNum(name) && !checkNum(surname) && checkAS(email) && !checkLet(id)){
-                if(birthM<=12 && birthD<=31 && checkID(id)){
+                if(checkID(id)){
                     block.innerText=`Imie: ${name} 
                                 Nazwisko: ${surname} 
                                 Wiek: ${age} 
                                 E-mail: ${email} 
                                 Płeć: ${gender}
                                 Pesel: ${id}
-                                Data urodzenia: ${birthY}-${birthM}-${birthD}
+                                Data urodzenia: ${checkDateFromId(id)}
                                 Opis: ${desc}`;
                 form.appendChild(block);
                 }else{
