@@ -1,4 +1,11 @@
-const express = require('express');
+import express, { response } from "express";
+import axios from "axios";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 const port = 5000;
 app.use(express.static(__dirname + '/public'));

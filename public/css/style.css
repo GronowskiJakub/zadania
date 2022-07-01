@@ -48,6 +48,7 @@ body{
     float: left;
     background-color: #15202B;
     color: #FFFF;
+    font-size: 80%;
     box-sizing: border-box;
     padding: 5px;
 }
@@ -89,6 +90,7 @@ button{
 #block{
     font-size: 150%;
     width: 400px;
+    padding-bottom: 5px;
 }
 #alertDiv{
     display: flex;
