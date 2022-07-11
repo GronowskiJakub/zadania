@@ -92,6 +92,18 @@ button{
     width: 400px;
     padding-bottom: 5px;
 }
+#disBlock{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 40%;
+    border: #15202B 4px solid;
+    border-radius: 10px;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
 #alertDiv{
     display: flex;
     padding-bottom: 5px;

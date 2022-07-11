@@ -1,5 +1,5 @@
-import {checkNum, checkAS, checkLet, checkID, checkDateFromId, checkYearFromId } from './universal/check.js'
-import {invalidID, invalidNum} from './universal/validInput.js'
+import {checkNum, checkAS, checkLet, checkID, checkDateFromId, checkYearFromId } from './universal/check'
+import {invalidID, invalidNum} from './universal/validInput'
 
 document.getElementById('saveButton').addEventListener('click',save)
 document.getElementById('name').addEventListener('input',invalidNum)
