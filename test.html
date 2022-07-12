@@ -16,11 +16,24 @@
 <body>
     <div id="bann">
         <a href="/index.html" id="banner-item">Formularz</a>
-        <a href="/test.html" id="banner-item">Strona testowa</a>
+        <a href="/test.html" id="banner-item">Wpisy</a>
         <a href="/index.html" id="banner-item">?</a>
         <a href="/index.html" id="banner-item">?</a>
     </div>
-    <h1>test</h1>
+    <h1>Ostatnie Wpisy</h1>
+    <div id="filter-menu">
+        <input type="text" id="filter">
+        <select id="item">
+            <option value="id">id</option>
+            <option value="userId">userid</option>
+            <option value="title">title</option>
+        </select>
+        <select id="sort">
+            <option value="asc">rosnąco</option>
+            <option value="desc">malejąco</option>
+        </select>
+        <button id="fBtt">filtruj</button>
+    </div>
     <script src="./public/script/display.js"></script>
 </body>
 </html>

@@ -4605,13 +4605,20 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+document.getElementById('fBtt').addEventListener('click', removeDisBox);
+document.getElementById('fBtt').addEventListener('click', displayBlocks);
+var disBox = document.createElement('div');
+var body = document.querySelector('body');
+disBox.setAttribute("id", "disBox");
+body.appendChild(disBox);
+
 function displayBlocks() {
   return _displayBlocks.apply(this, arguments);
 }
 
 function _displayBlocks() {
   _displayBlocks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var disBlock, body, posts, x, _disBlock;
+    var disBlock, filter, sort, item, posts, x, _disBlock;
 
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
@@ -4619,12 +4626,75 @@ function _displayBlocks() {
           case 0:
             disBlock = document.createElement('div');
             disBlock.setAttribute("id", "disBlock");
-            body = document.querySelector('body');
-            _context.next = 5;
+            filter = document.getElementById('filter');
+            sort = document.getElementById('sort');
+            item = document.getElementById('item');
+            _context.next = 7;
             return (0, _api.getApi)('/posts');
 
-          case 5:
+          case 7:
             posts = _context.sent;
+            _context.t0 = item.value;
+            _context.next = _context.t0 === "id" ? 11 : _context.t0 === "userId" ? 14 : _context.t0 === "title" ? 17 : 20;
+            break;
+
+          case 11:
+            if (filter.value) {
+              posts = posts.filter(function (e) {
+                return e.id == filter.value;
+              });
+            }
+
+            if (sort.value == "asc") {
+              posts = posts.sort(function (e1, e2) {
+                return e1 - e2;
+              });
+            } else if (sort.value == "desc") {
+              posts = posts.sort(function (e1, e2) {
+                return e1 - e2;
+              });
+              posts = posts.reverse();
+            }
+
+            return _context.abrupt("break", 20);
+
+          case 14:
+            if (filter.value) {
+              posts = posts.filter(function (e) {
+                return e.userId == filter.value;
+              });
+            }
+
+            if (sort.value == "asc") {
+              posts = posts.sort(function (e1, e2) {
+                return e1 - e2;
+              });
+            } else if (sort.value == "desc") {
+              posts = posts.sort(function (e1, e2) {
+                return e1 - e2;
+              });
+              posts = posts.reverse();
+            }
+
+            return _context.abrupt("break", 20);
+
+          case 17:
+            if (filter.value) {
+              posts = posts.filter(function (e) {
+                return e.title.search(filter.value) > 0;
+              });
+            }
+
+            if (sort.value == "asc") {
+              posts = posts.sort();
+            } else if (sort.value == "desc") {
+              posts = posts.sort();
+              posts = posts.reverse();
+            }
+
+            return _context.abrupt("break", 20);
+
+          case 20:
             x = 0;
 
             while (x < posts.length) {
@@ -4633,11 +4703,11 @@ function _displayBlocks() {
               _disBlock.setAttribute("id", "disBlock");
 
               _disBlock.innerText = "userId: ".concat(posts[x].userId, "\n                        id: ").concat(posts[x].id, "\n                        title: ").concat(posts[x].title, "\n                        ");
-              body.appendChild(_disBlock);
+              disBox.appendChild(_disBlock);
               x++;
             }
 
-          case 8:
+          case 22:
           case "end":
             return _context.stop();
         }
@@ -4645,6 +4715,11 @@ function _displayBlocks() {
     }, _callee);
   }));
   return _displayBlocks.apply(this, arguments);
+}
+
+function removeDisBox() {
+  var disbox = document.querySelector('#disBox');
+  disBox.innerHTML = "";
 }
 
 displayBlocks();
@@ -4676,7 +4751,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58458" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60169" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
