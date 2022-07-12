@@ -4608,9 +4608,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 document.getElementById('fBtt').addEventListener('click', removeDisBox);
 document.getElementById('fBtt').addEventListener('click', displayBlocks);
 var disBox = document.createElement('div');
-var body = document.querySelector('body');
+var main = document.querySelector('#main');
 disBox.setAttribute("id", "disBox");
-body.appendChild(disBox);
+main.appendChild(disBox);
 
 function displayBlocks() {
   return _displayBlocks.apply(this, arguments);
@@ -4751,7 +4751,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60169" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55924" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

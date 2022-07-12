@@ -4,9 +4,9 @@ document.getElementById('fBtt').addEventListener('click', displayBlocks)
 
 
 let disBox = document.createElement('div');
-let body = document.querySelector('body');
+let main = document.querySelector('#main');
 disBox.setAttribute("id", "disBox");
-body.appendChild(disBox)
+main.appendChild(disBox)
 
 async function displayBlocks(){
     let disBlock = document.createElement('div');

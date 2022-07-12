@@ -314,7 +314,7 @@ function fireAlert(mess) {
 
 function save(event) {
   var form = document.querySelector('form');
-  var nav = document.querySelector('#nav');
+  var main = document.querySelector('#main');
   var name = document.getElementById('name').value;
   var surname = document.getElementById('surname').value; //let age = document.getElementById('age').value;
 
@@ -339,7 +339,7 @@ function save(event) {
     if (!(0, _check.checkNum)(name) && !(0, _check.checkNum)(surname) && (0, _check.checkAS)(email) && !(0, _check.checkLet)(id)) {
       if ((0, _check.checkID)(id)) {
         block.innerText = "Imie: ".concat(name, " \n                                Nazwisko: ").concat(surname, " \n                                Wiek: ").concat(age, " \n                                E-mail: ").concat(email, " \n                                P\u0142e\u0107: ").concat(gender, "\n                                Pesel: ").concat(id, "\n                                Data urodzenia: \n                                ").concat((0, _check.checkDateFromId)(id), "\n                                Opis: ").concat(desc);
-        nav.appendChild(block);
+        main.appendChild(block);
       } else {
         fireAlert("Wpowadź poprawny pesel");
       }
@@ -378,7 +378,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60169" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55924" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

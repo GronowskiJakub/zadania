@@ -44,7 +44,7 @@ function fireAlert(mess) {
 
 function save(event){
     let form = document.querySelector('form');
-    let nav = document.querySelector('#nav');
+    let main = document.querySelector('#main');
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
     //let age = document.getElementById('age').value;
@@ -76,7 +76,7 @@ function save(event){
                                 Data urodzenia: 
                                 ${checkDateFromId(id)}
                                 Opis: ${desc}`;
-                nav.appendChild(block);
+                main.appendChild(block);
                 }else{
                     fireAlert("Wpowadź poprawny pesel");
                 }
