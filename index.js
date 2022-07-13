@@ -27,7 +27,25 @@ const routes = {
 document.getElementById('main').innerHTML='<div id="main"></div>';
 isLoading('body')
 
-if(path == ''){
+for(let x in routes){
+    console.log(x)
+    if(path == x){
+        console.log(x)
+        routes[x].html.then(function (page){
+            document.getElementById('main').innerHTML=page.toString()
+            import("./public/script/display.js").then(function (page){
+                isLoaded('body')
+            });
+        })
+    }
+}
+
+
+
+
+
+
+/*if(path == ''){
     routes.main.html.then(function (page) {
         document.getElementById('main').innerHTML=page.toString()
         isLoaded('body')
@@ -56,4 +74,4 @@ if(path == ''){
         document.getElementById('main').innerHTML=page.toString()
         isLoaded('body')
     });
-}
+}*/
