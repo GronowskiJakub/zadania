@@ -13,15 +13,15 @@ const routes = {
     },
     form:{
         html: import('./form.html'),
-        script: "./public/script/script.js"
+        script: () => import("./public/script/script.js")
     },
     entries:{
         html: import('./entries.html'),
-        script: "./public/script/display.js"
+        script: () => import("./public/script/display.js")
     },
     error:{
         html: import('./error.html'),
-        script: "" 
+        script: '' 
     }
 }
 document.getElementById('main').innerHTML='<div id="main"></div>';
@@ -33,9 +33,13 @@ for(let x in routes){
         console.log(x)
         routes[x].html.then(function (page){
             document.getElementById('main').innerHTML=page.toString()
-            import("./public/script/display.js").then(function (page){
+            if(routes[x].script!=''){
+                routes[x].script().then(function (page){
+                    isLoaded('body')
+                }); 
+            }else{
                 isLoaded('body')
-            });
+            }
         })
     }
 }
