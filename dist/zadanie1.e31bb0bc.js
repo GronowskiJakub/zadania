@@ -117,7 +117,28 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"public/script/universal/loading.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isLoaded = isLoaded;
+exports.isLoading = isLoading;
+var blocks = {};
+
+function isLoading(el) {
+  var place = document.querySelector(el);
+  var block = document.createElement('div');
+  block.setAttribute('id', 'loading-block');
+  place.appendChild(block);
+  blocks[el] = block;
+}
+
+function isLoaded(el) {
+  blocks[el].remove();
+}
+},{}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -233,28 +254,69 @@ LazyPromise.prototype.catch = function (onError) {
   return this.promise.catch(onError);
 };
 },{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _loading = require("./public/script/universal/loading");
+
 var path = window.location.pathname.substring(1);
+var routes = {
+  index: {
+    html: './index.html',
+    script: ''
+  },
+  main: {
+    html: require("_bundle_loader")(require.resolve('./main.html')),
+    script: ''
+  },
+  form: {
+    html: require("_bundle_loader")(require.resolve('./form.html')),
+    script: "./public/script/script.js"
+  },
+  entries: {
+    html: require("_bundle_loader")(require.resolve('./entries.html')),
+    script: "./public/script/display.js"
+  },
+  error: {
+    html: require("_bundle_loader")(require.resolve('./error.html')),
+    script: ""
+  }
+};
+document.getElementById('main').innerHTML = '<div id="main"></div>';
+(0, _loading.isLoading)('body');
 
 if (path == '') {
-  require("_bundle_loader")(require.resolve("./index.html")).then(function (page) {});
-}
-
-if (path == 'form') {
-  require("_bundle_loader")(require.resolve("./form.html")).then(function (page) {
+  routes.main.html.then(function (page) {
+    document.getElementById('main').innerHTML = page.toString();
+    (0, _loading.isLoaded)('body');
+  });
+} else if (path == 'main') {
+  routes.main.html.then(function (page) {
+    document.getElementById('main').innerHTML = page.toString();
+    (0, _loading.isLoaded)('body');
+  });
+} else if (path == 'form') {
+  routes.form.html.then(function (page) {
     document.getElementById('main').innerHTML = page.toString();
 
-    require("_bundle_loader")(require.resolve("./public/script/script.js")).then(function (page) {});
+    require("_bundle_loader")(require.resolve("./public/script/script.js")).then(function (page) {
+      (0, _loading.isLoaded)('body');
+    });
   });
-}
-
-if (path == 'entries') {
-  require("_bundle_loader")(require.resolve("./entries.html")).then(function (page) {
+} else if (path == 'entries') {
+  routes.entries.html.then(function (page) {
     document.getElementById('main').innerHTML = page.toString();
 
-    require("_bundle_loader")(require.resolve("./public/script/display.js")).then(function (page) {});
+    require("_bundle_loader")(require.resolve("./public/script/display.js")).then(function (page) {
+      (0, _loading.isLoaded)('body');
+    });
+  });
+} else {
+  routes.error.html.then(function (page) {
+    document.getElementById('main').innerHTML = page.toString();
+    (0, _loading.isLoaded)('body');
   });
 }
-},{"_bundle_loader":"node_modules/parcel-bundler/src/builtins/bundle-loader.js","./index.html":[["index.html","index.html"],"index.html"],"./form.html":[["form.854a871f.html","form.html"],"form.html"],"./public/script/script.js":[["script.77fc25d1.js","public/script/script.js"],"script.77fc25d1.js.map","public/script/script.js"],"./entries.html":[["entries.8f2e1837.html","entries.html"],"entries.html"],"./public/script/display.js":[["display.834aec14.js","public/script/display.js"],"display.834aec14.js.map","public/script/display.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./public/script/universal/loading":"public/script/universal/loading.js","_bundle_loader":"node_modules/parcel-bundler/src/builtins/bundle-loader.js","./main.html":[["main.ff770856.html","main.html"],"main.html"],"./form.html":[["form.854a871f.html","form.html"],"form.html"],"./entries.html":[["entries.8f2e1837.html","entries.html"],"entries.html"],"./error.html":[["error.5793dfc3.html","error.html"],"error.html"],"./public/script/script.js":[["script.77fc25d1.js","public/script/script.js"],"script.77fc25d1.js.map","public/script/script.js"],"./public/script/display.js":[["display.834aec14.js","public/script/display.js"],"display.834aec14.js.map","public/script/display.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -282,7 +344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -47,11 +47,8 @@ function save(event){
     let main = document.querySelector('#main');
     let name = document.getElementById('name').value;
     let surname = document.getElementById('surname').value;
-    //let age = document.getElementById('age').value;
     let email = document.getElementById('email').value;
     let desc = document.getElementById('desc').value;
-    //let gender = document.getElementById('gender').value;
-    //let birth = document.getElementById('birth').value;
     let id = document.getElementById('id').value;
     let gender;
 

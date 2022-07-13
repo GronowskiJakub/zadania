@@ -316,12 +316,9 @@ function save(event) {
   var form = document.querySelector('form');
   var main = document.querySelector('#main');
   var name = document.getElementById('name').value;
-  var surname = document.getElementById('surname').value; //let age = document.getElementById('age').value;
-
+  var surname = document.getElementById('surname').value;
   var email = document.getElementById('email').value;
-  var desc = document.getElementById('desc').value; //let gender = document.getElementById('gender').value;
-  //let birth = document.getElementById('birth').value;
-
+  var desc = document.getElementById('desc').value;
   var id = document.getElementById('id').value;
   var gender;
 
@@ -378,7 +375,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

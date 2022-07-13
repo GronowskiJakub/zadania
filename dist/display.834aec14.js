@@ -4553,6 +4553,8 @@ exports.getApi = getApi;
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _loading = require("./universal/loading");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -4576,14 +4578,16 @@ function _getApi() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            (0, _loading.isLoading)('#main');
+            _context.next = 3;
             return _axios.default.get("".concat(url).concat(route), {});
 
-          case 2:
+          case 3:
             res = _context.sent;
+            (0, _loading.isLoaded)('#main');
             return _context.abrupt("return", res.data);
 
-          case 4:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -4592,7 +4596,7 @@ function _getApi() {
   }));
   return _getApi.apply(this, arguments);
 }
-},{"axios":"node_modules/axios/index.js"}],"public/script/display.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./universal/loading":"public/script/universal/loading.js"}],"public/script/display.js":[function(require,module,exports) {
 "use strict";
 
 var _api = require("./api");
@@ -4751,7 +4755,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -4927,5 +4931,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","public/script/display.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
 //# sourceMappingURL=/display.834aec14.js.map

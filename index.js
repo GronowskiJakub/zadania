@@ -1,25 +1,59 @@
+import { isLoaded, isLoading } from './public/script/universal/loading';
+
 const path = window.location.pathname.substring(1)
 
-if(path == '') {
-    import("./index.html").then(function (page) {
-    });
+const routes = {
+    index:{
+        html: './index.html',
+        script: ''
+    },
+    main:{
+        html: import('./main.html'),
+        script: ''
+    },
+    form:{
+        html: import('./form.html'),
+        script: "./public/script/script.js"
+    },
+    entries:{
+        html: import('./entries.html'),
+        script: "./public/script/display.js"
+    },
+    error:{
+        html: import('./error.html'),
+        script: "" 
+    }
 }
+document.getElementById('main').innerHTML='<div id="main"></div>';
+isLoading('body')
 
-if(path == 'form') {
-    import("./form.html").then(function (page) {
+if(path == ''){
+    routes.main.html.then(function (page) {
         document.getElementById('main').innerHTML=page.toString()
-        
+        isLoaded('body')
+    });
+}else if(path == 'main') {
+    routes.main.html.then(function (page) {
+        document.getElementById('main').innerHTML=page.toString()
+        isLoaded('body')
+    });
+}else if(path == 'form') {
+    routes.form.html.then(function (page) {
+        document.getElementById('main').innerHTML=page.toString()
         import("./public/script/script.js").then(function (page){
+            isLoaded('body')
         });
     });
-}
-
-if(path == 'entries') {
-    import("./entries.html").then(function (page) {
+}else if(path == 'entries') {
+    routes.entries.html.then(function (page) {
         document.getElementById('main').innerHTML=page.toString()
-
         import("./public/script/display.js").then(function (page){
+            isLoaded('body')
         });
     });
+}else{
+    routes.error.html.then(function (page) {
+        document.getElementById('main').innerHTML=page.toString()
+        isLoaded('body')
+    });
 }
- 
