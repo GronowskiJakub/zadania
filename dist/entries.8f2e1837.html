@@ -1,15 +1,38 @@
 <h1>Ostatnie Wpisy</h1>
     <div id="filter-menu">
-        <input type="text" id="filter">
-        <select id="item">
-            <option value="id">id</option>
-            <option value="userId">userid</option>
-            <option value="title">title</option>
-        </select>
-        <select id="sort">
-            <option value="asc">rosnąco</option>
-            <option value="desc">malejąco</option>
-        </select>
+        <table>
+            <tr>
+                <td>
+                    id:
+                </td>
+                <td>
+                    userId:
+                </td>
+                <td>
+                    title:
+                </td>
+            </tr>
+            <tr>
+                <td id="id">
+                </td>
+                <td id="userId">
+                </td>
+                <td id="title">
+                </td>
+            </tr>
+        </table>
+        <div id="sort-menu">
+            Sortuj wg:
+            <select id="sort-item">
+                <option value="id">id</option>
+                <option value="userId">userId</option>
+                <option value="title">title</option>
+            </select>
+            <select id="sort">
+                <option value="asc">rosnąco</option>
+                <option value="desc">malejąco</option>
+            </select>
+        </div>
         <button id="fBtt">filtruj</button>
     </div>
 

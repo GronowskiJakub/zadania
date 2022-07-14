@@ -270,65 +270,55 @@ var routes = {
   },
   form: {
     html: require("_bundle_loader")(require.resolve('./form.html')),
-    script: "./public/script/script.js"
+    script: function script() {
+      return require("_bundle_loader")(require.resolve("./public/script/script.js"));
+    }
   },
   entries: {
     html: require("_bundle_loader")(require.resolve('./entries.html')),
-    script: "./public/script/display.js"
+    script: function script() {
+      return require("_bundle_loader")(require.resolve("./public/script/display.js"));
+    }
   },
   error: {
     html: require("_bundle_loader")(require.resolve('./error.html')),
-    script: ""
+    script: ''
   }
 };
 document.getElementById('main').innerHTML = '<div id="main"></div>';
 (0, _loading.isLoading)('body');
 
-for (var x in routes) {
-  console.log(x);
+function findRoutes(path) {
+  var _loop = function _loop(x) {
+    if (path == x) {
+      routes[x].html.then(function (page) {
+        document.getElementById('main').innerHTML = page.toString();
 
-  if (path == x) {
-    console.log(x);
-    routes[x].html.then(function (page) {
-      document.getElementById('main').innerHTML = page.toString();
-
-      require("_bundle_loader")(require.resolve("./public/script/display.js")).then(function (page) {
-        (0, _loading.isLoaded)('body');
+        if (routes[x].script != '') {
+          routes[x].script().then((0, _loading.isLoaded)('body'));
+        } else {
+          console.log("blad2");
+          (0, _loading.isLoaded)('body');
+        }
       });
+      return "break";
+    }
+
+    routes.error.html.then(function (page) {
+      document.getElementById('main').innerHTML = page.toString();
+      (0, _loading.isLoaded)('body');
     });
+  };
+
+  for (var x in routes) {
+    var _ret = _loop(x);
+
+    if (_ret === "break") break;
   }
 }
-/*if(path == ''){
-    routes.main.html.then(function (page) {
-        document.getElementById('main').innerHTML=page.toString()
-        isLoaded('body')
-    });
-}else if(path == 'main') {
-    routes.main.html.then(function (page) {
-        document.getElementById('main').innerHTML=page.toString()
-        isLoaded('body')
-    });
-}else if(path == 'form') {
-    routes.form.html.then(function (page) {
-        document.getElementById('main').innerHTML=page.toString()
-        import("./public/script/script.js").then(function (page){
-            isLoaded('body')
-        });
-    });
-}else if(path == 'entries') {
-    routes.entries.html.then(function (page) {
-        document.getElementById('main').innerHTML=page.toString()
-        import("./public/script/display.js").then(function (page){
-            isLoaded('body')
-        });
-    });
-}else{
-    routes.error.html.then(function (page) {
-        document.getElementById('main').innerHTML=page.toString()
-        isLoaded('body')
-    });
-}*/
-},{"./public/script/universal/loading":"public/script/universal/loading.js","_bundle_loader":"node_modules/parcel-bundler/src/builtins/bundle-loader.js","./main.html":[["main.ff770856.html","main.html"],"main.html"],"./form.html":[["form.854a871f.html","form.html"],"form.html"],"./entries.html":[["entries.8f2e1837.html","entries.html"],"entries.html"],"./error.html":[["error.5793dfc3.html","error.html"],"error.html"],"./public/script/display.js":[["display.834aec14.js","public/script/display.js"],"display.834aec14.js.map","public/script/display.js"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+findRoutes(path);
+},{"./public/script/universal/loading":"public/script/universal/loading.js","_bundle_loader":"node_modules/parcel-bundler/src/builtins/bundle-loader.js","./main.html":[["main.ff770856.html","main.html"],"main.html"],"./form.html":[["form.854a871f.html","form.html"],"form.html"],"./public/script/script.js":[["script.77fc25d1.js","public/script/script.js"],"script.77fc25d1.js.map","public/script/script.js"],"./entries.html":[["entries.8f2e1837.html","entries.html"],"entries.html"],"./public/script/display.js":[["display.834aec14.js","public/script/display.js"],"display.834aec14.js.map","public/script/display.js"],"./error.html":[["error.5793dfc3.html","error.html"],"error.html"]}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -356,7 +346,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65083" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58777" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

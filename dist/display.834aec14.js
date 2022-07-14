@@ -4596,10 +4596,126 @@ function _getApi() {
   }));
   return _getApi.apply(this, arguments);
 }
-},{"axios":"node_modules/axios/index.js","./universal/loading":"public/script/universal/loading.js"}],"public/script/display.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./universal/loading":"public/script/universal/loading.js"}],"public/script/universal/filtering.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.filtering = filtering;
+exports.makeFilters = makeFilters;
+exports.sorting = sorting;
+
+var _loading = require("./loading");
+
+var fItems = {
+  id: {
+    input: 'input-id',
+    filterType: function filterType(e) {
+      return e.id == document.getElementById('input-id').value;
+    },
+    sortType: function sortType(e1, e2) {
+      return e1.id - e2.id;
+    }
+  },
+  userId: {
+    input: 'input-userId',
+    filterType: function filterType(e) {
+      return e.userId == document.getElementById('input-userId').value;
+    },
+    sortType: function sortType(e1, e2) {
+      return e1.userId - e2.userId;
+    }
+  },
+  title: {
+    input: 'input-title',
+    filterType: function filterType(e) {
+      return e.title.search(document.getElementById('input-title').value) > 0;
+    },
+    sortType: function sortType(e1, e2) {
+      return e1.title >= e2.title ? 1 : -1;
+    }
+  }
+};
+
+function makeFilters() {
+  for (var key in fItems) {
+    var input = document.createElement('input');
+    var menu = document.querySelector('#filter-menu');
+    var td = document.querySelector("#".concat(key));
+    input.setAttribute('type', 'text');
+    input.setAttribute('id', "input-".concat(key));
+    td.appendChild(input);
+  }
+}
+
+function filtering(posts) {
+  var place;
+
+  for (var key in fItems) {
+    place = document.getElementById(fItems[key].input);
+
+    if (place.value != '') {
+      posts = posts.filter(fItems[key].filterType);
+    }
+  }
+
+  return posts;
+}
+
+function sorting(posts) {
+  var sort_item = document.getElementById('sort-item');
+  posts = posts.sort(fItems[sort_item.value].sortType);
+
+  if (sort.value == 'desc') {
+    return posts.reverse();
+  } else {
+    return posts;
+  }
+}
+/*
+switch(item.value){
+    case "id":
+        if(filter.value){
+            posts = posts.filter(e => e.id== filter.value)
+        }
+        if(sort.value=="asc"){
+            posts = posts.sort((e1, e2) => e1-e2);
+        }else if(sort.value=="desc"){
+            posts = posts.sort((e1, e2) => e1-e2);
+            posts = posts.reverse();
+        }
+        break;
+    case "userId":
+        if(filter.value){
+            posts = posts.filter(e => e.userId== filter.value)
+        }
+        if(sort.value=="asc"){
+            posts = posts.sort((e1, e2) => e1-e2);
+        }else if(sort.value=="desc"){
+            posts = posts.sort((e1, e2) => e1-e2);
+            posts = posts.reverse();
+        }
+        break;
+    case "title":
+        if(filter.value){
+            posts = posts.filter(e => e.title.search(filter.value)>0)
+        }
+        if(sort.value=="asc"){
+            posts = posts.sort();
+        }else if(sort.value=="desc"){
+            posts = posts.sort();
+            posts = posts.reverse();
+        }
+        break;
+}
+*/
+},{"./loading":"public/script/universal/loading.js"}],"public/script/display.js":[function(require,module,exports) {
 "use strict";
 
 var _api = require("./api");
+
+var _filtering = require("./universal/filtering");
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
@@ -4611,6 +4727,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 document.getElementById('fBtt').addEventListener('click', removeDisBox);
 document.getElementById('fBtt').addEventListener('click', displayBlocks);
+(0, _filtering.makeFilters)();
 var disBox = document.createElement('div');
 var main = document.querySelector('#main');
 disBox.setAttribute("id", "disBox");
@@ -4622,96 +4739,34 @@ function displayBlocks() {
 
 function _displayBlocks() {
   _displayBlocks = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var disBlock, filter, sort, item, posts, x, _disBlock;
-
+    var posts, x, disBlock;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            disBlock = document.createElement('div');
-            disBlock.setAttribute("id", "disBlock");
-            filter = document.getElementById('filter');
-            sort = document.getElementById('sort');
-            item = document.getElementById('item');
-            _context.next = 7;
+            _context.next = 2;
             return (0, _api.getApi)('/posts');
 
-          case 7:
+          case 2:
             posts = _context.sent;
-            _context.t0 = item.value;
-            _context.next = _context.t0 === "id" ? 11 : _context.t0 === "userId" ? 14 : _context.t0 === "title" ? 17 : 20;
-            break;
 
-          case 11:
-            if (filter.value) {
-              posts = posts.filter(function (e) {
-                return e.id == filter.value;
-              });
+            if ((0, _filtering.filtering)(posts) != undefined) {
+              posts = (0, _filtering.filtering)(posts);
             }
 
-            if (sort.value == "asc") {
-              posts = posts.sort(function (e1, e2) {
-                return e1 - e2;
-              });
-            } else if (sort.value == "desc") {
-              posts = posts.sort(function (e1, e2) {
-                return e1 - e2;
-              });
-              posts = posts.reverse();
-            }
-
-            return _context.abrupt("break", 20);
-
-          case 14:
-            if (filter.value) {
-              posts = posts.filter(function (e) {
-                return e.userId == filter.value;
-              });
-            }
-
-            if (sort.value == "asc") {
-              posts = posts.sort(function (e1, e2) {
-                return e1 - e2;
-              });
-            } else if (sort.value == "desc") {
-              posts = posts.sort(function (e1, e2) {
-                return e1 - e2;
-              });
-              posts = posts.reverse();
-            }
-
-            return _context.abrupt("break", 20);
-
-          case 17:
-            if (filter.value) {
-              posts = posts.filter(function (e) {
-                return e.title.search(filter.value) > 0;
-              });
-            }
-
-            if (sort.value == "asc") {
-              posts = posts.sort();
-            } else if (sort.value == "desc") {
-              posts = posts.sort();
-              posts = posts.reverse();
-            }
-
-            return _context.abrupt("break", 20);
-
-          case 20:
+            ;
+            (0, _filtering.sorting)(posts);
             x = 0;
 
             while (x < posts.length) {
-              _disBlock = document.createElement('div');
-
-              _disBlock.setAttribute("id", "disBlock");
-
-              _disBlock.innerText = "userId: ".concat(posts[x].userId, "\n                        id: ").concat(posts[x].id, "\n                        title: ").concat(posts[x].title, "\n                        ");
-              disBox.appendChild(_disBlock);
+              disBlock = document.createElement('div');
+              disBlock.setAttribute("id", "disBlock");
+              disBlock.innerText = "userId: ".concat(posts[x].userId, "\n                        id: ").concat(posts[x].id, "\n                        title: ").concat(posts[x].title, "\n                        ");
+              disBox.appendChild(disBlock);
               x++;
             }
 
-          case 22:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -4727,7 +4782,8 @@ function removeDisBox() {
 }
 
 displayBlocks();
-},{"./api":"public/script/api.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var menu = document.querySelector('#filter-menu');
+},{"./api":"public/script/api.js","./universal/filtering":"public/script/universal/filtering.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -4755,7 +4811,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65083" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58777" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

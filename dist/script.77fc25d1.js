@@ -200,10 +200,6 @@ function checkDateFromId(id) {
     birthM = "0" + birthM;
   }
 
-  if (birthD < 10) {
-    birthD = "0" + birthM;
-  }
-
   return birthY + "-" + birthM + "-" + birthD;
 } //function checking year of birth from id
 
@@ -375,7 +371,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65083" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58777" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

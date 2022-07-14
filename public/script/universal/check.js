@@ -57,9 +57,6 @@ export function checkDateFromId(id){
     if(birthM<10){
         birthM="0"+birthM;
     }
-    if(birthD<10){
-        birthD="0"+birthM;
-    }
     return birthY+"-"+birthM+"-"+birthD;
 }
 //function checking year of birth from id
