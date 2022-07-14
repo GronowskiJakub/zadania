@@ -1,38 +1,29 @@
 import { isLoading } from "./loading";
-const fItems = {
-    id:{
-        input: 'input-id',
-        filterType: e => e.id== document.getElementById('input-id').value,
-        sortType: (e1, e2) => e1.id-e2.id
-    },
-    userId:{
-        input: 'input-userId',
-        filterType: e => e.userId== document.getElementById('input-userId').value,
-        sortType: (e1, e2) => e1.userId-e2.userId
-    },
-    title:{
-        input: 'input-title',
-        filterType: e => e.title.search(document.getElementById('input-title').value)>0,
-        sortType: (e1, e2) => {
-            return e1.title >= e2.title ? 1 : -1
+import {removeDisBox, displayBlocks} from "../display";
+import {invalidLet, invalidNum} from "./validInput";
+
+document.getElementById('fBtt').addEventListener('click', removeDisBox)
+document.getElementById('fBtt').addEventListener('click', displayBlocks)
+
+export function makeFilters(fItems){
+
+    for(const key in fItems){
+        let block = document.createElement('input');
+        let menu = document.querySelector('#filter-menu');
+        let td = document.querySelector(`#${key}`);
+        block.setAttribute('type', 'text');
+        block.setAttribute('id', `input-${key}`);
+
+        td.appendChild(block);
+        if(key!='title'){
+            document.getElementById(fItems[key].input).addEventListener('input', invalidLet)
+        }else{
+            document.getElementById(fItems[key].input).addEventListener('input', invalidNum)
         }
     }
 }
 
-export function makeFilters(){
-
-    for(const key in fItems){
-        let input = document.createElement('input');
-        let menu = document.querySelector('#filter-menu');
-        let td = document.querySelector(`#${key}`);
-        input.setAttribute('type', 'text');
-        input.setAttribute('id', `input-${key}`);
-
-        td.appendChild(input);
-    }
-}
-
-export function filtering(posts){
+export function filtering(posts, fItems){
     let place;
 
     for(const key in fItems){
@@ -45,7 +36,7 @@ export function filtering(posts){
 return posts;
 }
 
-export function sorting(posts){
+export function sorting(posts, fItems){
 
     let sort_item = document.getElementById('sort-item');
 
@@ -59,41 +50,3 @@ export function sorting(posts){
     }
 
 }
-
-    /*
-    switch(item.value){
-        case "id":
-            if(filter.value){
-                posts = posts.filter(e => e.id== filter.value)
-            }
-            if(sort.value=="asc"){
-                posts = posts.sort((e1, e2) => e1-e2);
-            }else if(sort.value=="desc"){
-                posts = posts.sort((e1, e2) => e1-e2);
-                posts = posts.reverse();
-            }
-            break;
-        case "userId":
-            if(filter.value){
-                posts = posts.filter(e => e.userId== filter.value)
-            }
-            if(sort.value=="asc"){
-                posts = posts.sort((e1, e2) => e1-e2);
-            }else if(sort.value=="desc"){
-                posts = posts.sort((e1, e2) => e1-e2);
-                posts = posts.reverse();
-            }
-            break;
-        case "title":
-            if(filter.value){
-                posts = posts.filter(e => e.title.search(filter.value)>0)
-            }
-            if(sort.value=="asc"){
-                posts = posts.sort();
-            }else if(sort.value=="desc"){
-                posts = posts.sort();
-                posts = posts.reverse();
-            }
-            break;
-    }
-    */
