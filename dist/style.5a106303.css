@@ -131,10 +131,12 @@ button{
 #block{
     font-size: 150%;
     text-align: center;
-    width: fit-content;
-    padding-bottom: 5px;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
+    background-color: #15202B;
+    box-sizing: border-box;
+    padding: 10px;
 }
 #loading-block{
     position: fixed;

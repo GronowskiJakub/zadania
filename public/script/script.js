@@ -9,7 +9,7 @@ document.getElementById('id').addEventListener('input',invalidID)
 let block = document.createElement('p');
 block.setAttribute("id", "block"); 
 
-function fireAlert(mess) {
+export function fireAlert(mess) {
     let alert = document.createElement('div');
     let alertTxt = document.createElement('div');
     let alertBtt = document.createElement('button');
@@ -24,7 +24,6 @@ function fireAlert(mess) {
     alert.style.display="flex";
     alert.style.justifyContent="center";
 
-    let main = document.querySelector('#main');
     let body = document.querySelector('body');
 
     body.appendChild(alert);

@@ -120,6 +120,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"public/script/script.js":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fireAlert = fireAlert;
+
 var _check = require("./universal/check");
 
 var _validInput = require("./universal/validInput");
@@ -144,7 +149,6 @@ function fireAlert(mess) {
   alertBtt.setAttribute("type", "button");
   alert.style.display = "flex";
   alert.style.justifyContent = "center";
-  var main = document.querySelector('#main');
   var body = document.querySelector('body');
   body.appendChild(alert);
   alert.appendChild(alertTxt);
@@ -225,7 +229,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64072" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50122" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

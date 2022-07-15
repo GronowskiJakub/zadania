@@ -1,5 +1,44 @@
 import {getApi} from './api'
 import {filtering, makeFilters, sorting} from './universal/filtering'
+import { checkNum, checkLet } from './universal/check'
+function fireAlert(mess) {
+    let alert = document.createElement('div');
+    let alertTxt = document.createElement('div');
+    let alertBtt = document.createElement('button');
+    let block = document.querySelector('#block');
+    
+    alertTxt.innerText=mess;
+    alertBtt.innerText="OK";
+    alert.setAttribute("id", "alertDiv");
+    alertTxt.setAttribute("id", "alertTxt");
+    alertBtt.setAttribute("id", "alertBtt");
+    alertBtt.setAttribute("type", "button");
+    alert.style.display="flex";
+    alert.style.justifyContent="center";
+
+    let body = document.querySelector('body');
+
+    body.appendChild(alert);
+    alert.appendChild(alertTxt);
+    alert.appendChild(alertBtt);
+
+    function alertRemove(){
+        alert.remove();
+    }
+
+    setTimeout(alertRemove, 4000);
+    alertBtt.onclick = alertRemove;
+    if(block){
+        block.remove();
+    }
+}
+//Listens to event 'filter' in filtering.js 
+document.addEventListener('filter', () => {
+    removeDisBox()
+    displayBlocks()
+})
+let button = document.getElementById('fBtt');
+
 const fItems = {
     id:{
         input: 'input-id',
@@ -19,10 +58,15 @@ const fItems = {
         }
     }
 }
-makeFilters(fItems)
+makeFilters(fItems);
+
 
 let disBox = document.createElement('div');
 let main = document.querySelector('#main');
+let input_id = document.getElementById('input-id');
+let input_userid = document.getElementById('input-userId');
+let input_title = document.getElementById('input-title');
+
 disBox.setAttribute("id", "disBox");
 main.appendChild(disBox)
 
@@ -44,6 +88,14 @@ export async function displayBlocks(){
                         `
         disBox.appendChild(disBlock)
         x++;
+    }
+    if(input_id.value || input_userid.value || input_title.value){
+        if(checkLet(input_id.value) || checkLet(input_userid.value) || checkNum(input_title.value)){
+            fireAlert('Wprowadź poprawne filtry');
+        }
+    }
+    if(posts == ''){
+        disBox.innerHTML="<h3 style='text-align: center;'>Brak danych</h3>";
     }
 }
 
